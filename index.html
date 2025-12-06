@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singapore Internship & Early-Career Checklist</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #003366;
+    }
+    h1 {
+      margin-bottom: 5px;
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 30px;
+      color: #555;
+      font-weight: normal;
+      font-style: italic;
+    }
+    
+    /* Top 3 Picks Section */
+    .top-picks {
+      background: linear-gradient(135deg, #003366, #004488);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2);
+    }
+    .top-picks h3 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 25px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .top-picks h3::before {
+      content: "🏆";
+      font-size: 24px;
+    }
+    .picks-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+    .person-picks {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .person-picks h4 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #FFD700;
+      font-size: 18px;
+      text-align: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .pick-item {
+      margin-bottom: 15px;
+    }
+    .pick-item label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+    .pick-item input, .pick-item select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .pick-item input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .pick-item input:focus, .pick-item select:focus {
+      outline: none;
+      border-color: #FFD700;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .pick-item select option {
+      background: #003366;
+      color: white;
+    }
+    
+    /* Controls */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+    }
+    .controls button {
+      padding: 10px 20px;
+      background: #003366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+    .controls button:hover {
+      background: #004488;
+    }
+    .controls button:active {
+      transform: translateY(1px);
+    }
+    
+    /* Existing section styles */
+    .section {
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .section-header:hover {
+      opacity: 0.95;
+    }
+    .section-header h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .toggle-icon {
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+    .section-content {
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    }
+    .section.expanded .section-content {
+      padding: 15px;
+      max-height: 2000px;
+    }
+    .section.expanded .toggle-icon {
+      transform: rotate(45deg);
+    }
+    .section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .section ul li {
+      margin-bottom: 12px;
+      padding: 15px;
+      background: #f9f9f9;
+      border: 1px solid #e1e1e1;
+      border-radius: 6px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .section ul li:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+    .comments {
+      margin-top: 12px;
+      padding: 12px;
+      background: #f1f1f1;
+      border-radius: 5px;
+      border-left: 4px solid #ccc;
+    }
+    .comments label {
+      display: block;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    .comments textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    .comments textarea:focus {
+      outline: none;
+      border-color: #003366;
+      box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.1);
+    }
+    /* Color classes for section headers */
+    .blue { background: linear-gradient(to right, #003366, #004488); }
+    .green { background: linear-gradient(to right, #006644, #008855); }
+    .red { background: linear-gradient(to right, #990000, #bb2222); }
+    .purple { background: linear-gradient(to right, #551A8B, #6A2CA0); }
+    .orange { background: linear-gradient(to right, #CC5500, #E66A00); }
+    .brown { background: linear-gradient(to right, #8B4513, #A0522D); }
+    .gray { background: linear-gradient(to right, #404040, #555555); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Singapore Internship & Early-Career Checklist</h1>
+    <h2>Diplomacy, Geopolitics, International Trade, Public Sector</h2>
+
+    <!-- Top 3 Picks Section -->
+    <div class="top-picks">
+      <h3>Top 3 Picks</h3>
+      <div class="picks-container">
+        <div class="person-picks" id="dorian-picks">
+          <h4>Dorian's Top 3</h4>
+          <div class="pick-item">
+            <label>🥇 First Choice:</label>
+            <select id="dorian-first">
+              <option value="">Select your top choice...</option>
+              <option value="french-embassy">French Embassy in Singapore</option>
+              <option value="eu-delegation">EU Delegation to Singapore</option>
+              <option value="asean-embassies">ASEAN Member State Embassies</option>
+              <option value="swiss-embassy">Swiss Embassy</option>
+              <option value="other-eu-embassies">Other European Embassies</option>
+              <option value="asef">Asia–Europe Foundation (ASEF)</option>
+              <option value="iata">IATA – Asia-Pacific Office</option>
+              <option value="oecd">OECD Singapore Centre</option>
+              <option value="un-agencies">UN Agencies in SG</option>
+              <option value="rsis">RSIS</option>
+              <option value="iseas">ISEAS–Yusof Ishak Institute</option>
+              <option value="aci">Asia Competitiveness Institute</option>
+              <option value="sif">Singapore International Foundation</option>
+              <option value="home">HOME</option>
+              <option value="aware">AWARE</option>
+              <option value="red-cross">Red Cross / Mercy Relief</option>
+              <option value="business-france">Business France (Singapore)</option>
+              <option value="een">Enterprise Europe Network</option>
+              <option value="stb">Singapore Tourism Board</option>
+              <option value="mncs">MNC Public Affairs Teams</option>
+              <option value="consulting">Consulting Firms</option>
+            </select>
+          </div>
+          <div class="pick-item">
+            <label>🥈 Second Choice:</label>
+            <select id="dorian-second">
+              <option value="">Select your second choice...</option>
+              <option value="french-embassy">French Embassy in Singapore</option>
+              <option value="eu-delegation">EU Delegation to Singapore</option>
+              <option value="asean-embassies">ASEAN Member State Embassies</option>
+              <option value="swiss-embassy">Swiss Embassy</option>
+              <option value="other-eu-embassies">Other European Embassies</option>
+              <option value="asef">Asia–Europe Foundation (ASEF)</option>
+              <option value="iata">IATA – Asia-Pacific Office</option>
+              <option value="oecd">OECD Singapore Centre</option>
+              <option value="un-agencies">UN Agencies in SG</option>
+              <option value="rsis">RSIS</option>
+              <option value="iseas">ISEAS–Yusof Ishak Institute</option>
+              <option value="aci">Asia Competitiveness Institute</option>
+              <option value="sif">Singapore International Foundation</option>
+              <option value="home">HOME</option>
+              <option value="aware">AWARE</option>
+              <option value="red-cross">Red Cross / Mercy Relief</option>
+              <option value="business-france">Business France (Singapore)</option>
+              <option value="een">Enterprise Europe Network</option>
+              <option value="stb">Singapore Tourism Board</option>
+              <option value="mncs">MNC Public Affairs Teams</option>
+              <option value="consulting">Consulting Firms</option>
+            </select>
+          </div>
+          <div class="pick-item">
+            <label>🥉 Third Choice:</label>
+            <select id="dorian-third">
+              <option value="">Select your third choice...</option>
+              <option value="french-embassy">French Embassy in Singapore</option>
+              <option value="eu-delegation">EU Delegation to Singapore</option>
+              <option value="asean-embassies">ASEAN Member State Embassies</option>
+              <option value="swiss-embassy">Swiss Embassy</option>
+              <option value="other-eu-embassies">Other European Embassies</option>
+              <option value="asef">Asia–Europe Foundation (ASEF)</option>
+              <option value="iata">IATA – Asia-Pacific Office</option>
+              <option value="oecd">OECD Singapore Centre</option>
+              <option value="un-agencies">UN Agencies in SG</option>
+              <option value="rsis">RSIS</option>
+              <option value="iseas">ISEAS–Yusof Ishak Institute</option>
+              <option value="aci">Asia Competitiveness Institute</option>
+              <option value="sif">Singapore International Foundation</option>
+              <option value="home">HOME</option>
+              <option value="aware">AWARE</option>
+              <option value="red-cross">Red Cross / Mercy Relief</option>
+              <option value="business-france">Business France (Singapore)</option>
+              <option value="een">Enterprise Europe Network</option>
+              <option value="stb">Singapore Tourism Board</option>
+              <option value="mncs">MNC Public Affairs Teams</option>
+              <option value="consulting">Consulting Firms</option>
+            </select>
+          </div>
+          <div class="pick-item">
+            <label>📝 Notes:</label>
+            <input type="text" id="dorian-notes" placeholder="Any additional thoughts or reasoning...">
+          </div>
+        </div>
+        
+        <div class="person-picks" id="margaux-picks">
+          <h4>Margaux's Top 3</h4>
+          <div class="pick-item">
+            <label>🥇 First Choice:</label>
+            <select id="margaux-first">
+              <option value="">Select your top choice...</option>
+              <option value="french-embassy">French Embassy in Singapore</option>
+              <option value="eu-delegation">EU Delegation to Singapore</option>
+              <option value="asean-embassies">ASEAN Member State Embassies</option>
+              <option value="swiss-embassy">Swiss Embassy</option>
+              <option value="other-eu-embassies">Other European Embassies</option>
+              <option value="asef">Asia–Europe Foundation (ASEF)</option>
+              <option value="iata">IATA – Asia-Pacific Office</option>
+              <option value="oecd">OECD Singapore Centre</option>
+              <option value="un-agencies">UN Agencies in SG</option>
+              <option value="rsis">RSIS</option>
+              <option value="iseas">ISEAS–Yusof Ishak Institute</option>
+              <option value="aci">Asia Competitiveness Institute</option>
+              <option value="sif">Singapore International Foundation</option>
+              <option value="home">HOME</option>
+              <option value="aware">AWARE</option>
+              <option value="red-cross">Red Cross / Mercy Relief</option>
+              <option value="business-france">Business France (Singapore)</option>
+              <option value="een">Enterprise Europe Network</option>
+              <option value="stb">Singapore Tourism Board</option>
+              <option value="mncs">MNC Public Affairs Teams</option>
+              <option value="consulting">Consulting Firms</option>
+            </select>
+          </div>
+          <div class="pick-item">
+            <label>🥈 Second Choice:</label>
+            <select id="margaux-second">
+              <option value="">Select your second choice...</option>
+              <option value="french-embassy">French Embassy in Singapore</option>
+              <option value="eu-delegation">EU Delegation to Singapore</option>
+              <option value="asean-embassies">ASEAN Member State Embassies</option>
+              <option value="swiss-embassy">Swiss Embassy</option>
+              <option value="other-eu-embassies">Other European Embassies</option>
+              <option value="asef">Asia–Europe Foundation (ASEF)</option>
+              <option value="iata">IATA – Asia-Pacific Office</option>
+              <option value="oecd">OECD Singapore Centre</option>
+              <option value="un-agencies">UN Agencies in SG</option>
+              <option value="rsis">RSIS</option>
+              <option value="iseas">ISEAS–Yusof Ishak Institute</option>
+              <option value="aci">Asia Competitiveness Institute</option>
+              <option value="sif">Singapore International Foundation</option>
+              <option value="home">HOME</option>
+              <option value="aware">AWARE</option>
+              <option value="red-cross">Red Cross / Mercy Relief</option>
+              <option value="business-france">Business France (Singapore)</option>
+              <option value="een">Enterprise Europe Network</option>
+              <option value="stb">Singapore Tourism Board</option>
+              <option value="mncs">MNC Public Affairs Teams</option>
+              <option value="consulting">Consulting Firms</option>
+            </select>
+          </div>
+          <div class="pick-item">
+            <label>🥉 Third Choice:</label>
+            <select id="margaux-third">
+              <option value="">Select your third choice...</option>
+              <option value="french-embassy">French Embassy in Singapore</option>
+              <option value="eu-delegation">EU Delegation to Singapore</option>
+              <option value="asean-embassies">ASEAN Member State Embassies</option>
+              <option value="swiss-embassy">Swiss Embassy</option>
+              <option value="other-eu-embassies">Other European Embassies</option>
+              <option value="asef">Asia–Europe Foundation (ASEF)</option>
+              <option value="iata">IATA – Asia-Pacific Office</option>
+              <option value="oecd">OECD Singapore Centre</option>
+              <option value="un-agencies">UN Agencies in SG</option>
+              <option value="rsis">RSIS</option>
+              <option value="iseas">ISEAS–Yusof Ishak Institute</option>
+              <option value="aci">Asia Competitiveness Institute</option>
+              <option value="sif">Singapore International Foundation</option>
+              <option value="home">HOME</option>
+              <option value="aware">AWARE</option>
+              <option value="red-cross">Red Cross / Mercy Relief</option>
+              <option value="business-france">Business France (Singapore)</option>
+              <option value="een">Enterprise Europe Network</option>
+              <option value="stb">Singapore Tourism Board</option>
+              <option value="mncs">MNC Public Affairs Teams</option>
+              <option value="consulting">Consulting Firms</option>
+            </select>
+          </div>
+          <div class="pick-item">
+            <label>📝 Notes:</label>
+            <input type="text" id="margaux-notes" placeholder="Any additional thoughts or reasoning...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="expand-all">Expand All Sections</button>
+      <button id="collapse-all">Collapse All Sections</button>
+    </div>
+
+    <!-- Section 1 -->
+    <div class="section" id="section1">
+      <div class="section-header blue" data-section="1">
+        <h3>1. Embassies & Diplomatic Missions</h3>
+        <div class="toggle-icon">+</div>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <strong>French Embassy in Singapore</strong> — best for French nationals; admin, culture, economic
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>EU Delegation to Singapore</strong> — policy, trade, political affairs
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>ASEAN Member State Embassies</strong> — cultural diplomacy, admin roles
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Swiss Embassy</strong> — cross-border cooperation themes
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Other European Embassies</strong> (DE, IT, ES, BE, NL) — short internships for EU citizens
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section" id="section2">
+      <div class="section-header green" data-section="2">
+        <h3>2. Intergovernmental & International Organisations</h3>
+        <div class="toggle-icon">+</div>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <strong>Asia–Europe Foundation (ASEF)</strong> — EU–Asia relations, diplomacy
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>IATA – Asia-Pacific Office</strong> — policy, regulatory affairs
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>OECD Singapore Centre</strong> — economic/Asia-policy analysis
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>UN Agencies in SG</strong> — UNHCR, UNDP regional links
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section" id="section3">
+      <div class="section-header red" data-section="3">
+        <h3>3. Think Tanks & Research Centres</h3>
+        <div class="toggle-icon">+</div>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <strong>RSIS</strong> — geopolitics, security, diplomacy research
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>ISEAS–Yusof Ishak Institute</strong> — SEA geopolitics, trade
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Asia Competitiveness Institute</strong> — economics, policy, global affairs
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Future Issues & Global Governance Labs</strong> — international governance
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section" id="section4">
+      <div class="section-header purple" data-section="4">
+        <h3>4. NGOs & Civil Society Organisations</h3>
+        <div class="toggle-icon">+</div>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <strong>Singapore International Foundation</strong> — intercultural programmes
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>HOME</strong> — migration, rights advocacy
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>AWARE</strong> — gender, policy analysis
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Red Cross / Mercy Relief</strong> — humanitarian operations
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section" id="section5">
+      <div class="section-header orange" data-section="5">
+        <h3>5. Trade & Economic Agencies</h3>
+        <div class="toggle-icon">+</div>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <strong>Business France (Singapore)</strong> — trade missions, market entry
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Enterprise Europe Network Asia-Pacific</strong> — EU–Asia trade cooperation
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Swiss Global Enterprise / EU Trade Offices</strong> — economic diplomacy
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Singapore Tourism Board (STB)</strong> — tourism strategy
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="section" id="section6">
+      <div class="section-header brown" data-section="6">
+        <h3>6. MNCs (Public Affairs & Government Relations)</h3>
+        <div class="toggle-icon">+</div>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <strong>Public Affairs / Geopolitical Risk Teams</strong> in:
+            <div style="margin-left: 20px; margin-top: 8px;">
+              <div><em>Airbus, Thales, Safran</em> (French strategic sectors)</div>
+              <div><em>TotalEnergies, Engie</em> (energy + regulatory)</div>
+              <div><em>BNP Paribas, Société Générale</em> (EU–Asia regulatory)</div>
+              <div><em>Google, Meta, Amazon</em> (public policy)</div>
+            </div>
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            <strong>Consulting firms</strong>: EY, Deloitte, KPMG, PwC, McKinsey, BCG, Bain
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="section" id="section7">
+      <div class="section-header gray" data-section="7">
+        <h3>7. Practical Reminders</h3>
+        <div class="toggle-icon">+</div>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            Ensure host sponsors <strong>Training Employment Pass</strong>
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            Target <em>Europe–Asia, trade, diplomatic</em> themes to leverage French background
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+          <li>
+            Embassies & int'l orgs: <strong>cold outreach</strong> needed — low visibility, high potential
+            <div class="comments">
+              <label>Dorian's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+              <label>Margaux's Comments:</label>
+              <textarea placeholder="Add your comments here..."></textarea>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all section headers
+      const sectionHeaders = document.querySelectorAll('.section-header');
+      const expandAllBtn = document.getElementById('expand-all');
+      const collapseAllBtn = document.getElementById('collapse-all');
+      
+      // Toggle section function
+      function toggleSection(sectionElement) {
+        sectionElement.classList.toggle('expanded');
+        const toggleIcon = sectionElement.querySelector('.toggle-icon');
+        toggleIcon.textContent = sectionElement.classList.contains('expanded') ? '×' : '+';
+      }
+      
+      // Add click event to each section header
+      sectionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          const section = this.closest('.section');
+          toggleSection(section);
+        });
+      });
+      
+      // Expand all sections
+      expandAllBtn.addEventListener('click', function() {
+        document.querySelectorAll('.section').forEach(section => {
+          if (!section.classList.contains('expanded')) {
+            toggleSection(section);
+          }
+        });
+      });
+      
+      // Collapse all sections
+      collapseAllBtn.addEventListener('click', function() {
+        document.querySelectorAll('.section').forEach(section => {
+          if (section.classList.contains('expanded')) {
+            toggleSection(section);
+          }
+        });
+      });
+      
+      // Optional: Expand first section by default
+      document.querySelector('#section1').classList.add('expanded');
+      document.querySelector('#section1 .toggle-icon').textContent = '×';
+      
+      // Save all form data to localStorage
+      function saveAllData() {
+        // Save top picks
+        const topPicksInputs = [
+          'dorian-first', 'dorian-second', 'dorian-third', 'dorian-notes',
+          'margaux-first', 'margaux-second', 'margaux-third', 'margaux-notes'
+        ];
+        
+        topPicksInputs.forEach(id => {
+          const element = document.getElementById(id);
+          if (element) {
+            localStorage.setItem(`top-picks-${id}`, element.value);
+          }
+        });
+        
+        // Save comments
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+          const section = textarea.closest('.section').id;
+          const label = textarea.previousElementSibling.textContent;
+          const id = `${section}-${label.replace(/'s Comments:/, '').trim()}`;
+          
+          localStorage.setItem(id, textarea.value);
+        });
+        
+        console.log('All data saved to localStorage');
+      }
+      
+      // Load all saved data
+      function loadAllData() {
+        // Load top picks
+        const topPicksInputs = [
+          'dorian-first', 'dorian-second', 'dorian-third', 'dorian-notes',
+          'margaux-first', 'margaux-second', 'margaux-third', 'margaux-notes'
+        ];
+        
+        topPicksInputs.forEach(id => {
+          const element = document.getElementById(id);
+          if (element) {
+            const savedValue = localStorage.getItem(`top-picks-${id}`);
+            if (savedValue !== null) {
+              element.value = savedValue;
+            }
+          }
+        });
+        
+        // Load comments
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+          const section = textarea.closest('.section').id;
+          const label = textarea.previousElementSibling.textContent;
+          const id = `${section}-${label.replace(/'s Comments:/, '').trim()}`;
+          
+          const savedComment = localStorage.getItem(id);
+          if (savedComment) {
+            textarea.value = savedComment;
+          }
+        });
+        
+        console.log('All data loaded from localStorage');
+      }
+      
+      // Add event listeners to top picks inputs
+      const topPicksElements = document.querySelectorAll('.top-picks input, .top-picks select');
+      topPicksElements.forEach(element => {
+        element.addEventListener('input', saveAllData);
+        element.addEventListener('change', saveAllData);
+      });
+      
+      // Add event listeners to comment textareas
+      const textareas = document.querySelectorAll('textarea');
+      textareas.forEach(textarea => {
+        textarea.addEventListener('input', saveAllData);
+      });
+      
+      // Load saved data on page load
+      loadAllData();
+    });
+  </script>
+</body>
+</html>
