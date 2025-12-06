@@ -926,52 +926,106 @@
     }
 
     // Collect all data from form
-    function collectAllData() {
-      const data = {};
-      
-      // Collect top picks
-      ALL_INPUT_IDS.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) data[id] = element.value;
-      });
-      
-      // Collect all comments
-      getAllTextareas().forEach(textarea => {
-        const section = textarea.closest('.section').id;
-        const label = textarea.previousElementSibling.textContent;
-        const id = `${section}-${label.replace(/'s Comments:/, '').trim()}`;
-        data[id] = textarea.value;
-      });
-      
-      // Add timestamp
-      data.lastUpdated = new Date().toISOString();
-      data.updatedBy = navigator.userAgent;
-      
-      return data;
+  function collectAllData() {
+  const data = {};
+  
+  // Collect top picks
+  ALL_INPUT_IDS.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) data[id] = element.value;
+  });
+  
+  // Collect all comments from ALL sections - FIXED!
+  const textareas = document.querySelectorAll('textarea');
+  textareas.forEach((textarea, index) => {
+    // Find the closest section
+    const sectionElement = textarea.closest('.section');
+    const sectionId = sectionElement ? sectionElement.id : 'unknown-section';
+    
+    // Find the label - more robust method
+    let label = '';
+    const parentDiv = textarea.parentElement;
+    
+    if (parentDiv && parentDiv.previousElementSibling) {
+      // Try to get the label element
+      const labelElement = parentDiv.previousElementSibling;
+      if (labelElement.tagName === 'LABEL') {
+        label = labelElement.textContent || '';
+      }
     }
-
-    // Apply data to form
-    function applyData(data) {
-      // Apply top picks
-      ALL_INPUT_IDS.forEach(id => {
-        const element = document.getElementById(id);
-        if (element && data[id] !== undefined) {
-          element.value = data[id];
-        }
-      });
-      
-      // Apply comments
-      getAllTextareas().forEach(textarea => {
-        const section = textarea.closest('.section').id;
-        const label = textarea.previousElementSibling.textContent;
-        const id = `${section}-${label.replace(/'s Comments:/, '').trim()}`;
-        
-        if (data[id] !== undefined) {
-          textarea.value = data[id];
-        }
-      });
+    
+    // If we couldn't find label the normal way, look for it differently
+    if (!label) {
+      // Look for any label in the comments div
+      const labelInDiv = textarea.parentElement.querySelector('label');
+      if (labelInDiv) {
+        label = labelInDiv.textContent || '';
+      }
     }
+    
+    // Clean up the label text
+    label = label.replace(/'s Comments:/, '').trim();
+    
+    // Create a unique ID for this textarea
+    const id = `${sectionId}-${label || 'comment'}-${index}`;
+    data[id] = textarea.value;
+  });
+  
+  // Add metadata
+  data.lastUpdated = new Date().toISOString();
+  data.updatedBy = navigator.userAgent;
+  
+  console.log("📊 Collected data:", Object.keys(data).length, "items");
+  return data;
+}
 
+// Apply data to form - FIXED VERSION
+function applyData(data) {
+  console.log("📥 Applying data...");
+  
+  // Apply top picks
+  ALL_INPUT_IDS.forEach(id => {
+    const element = document.getElementById(id);
+    if (element && data[id] !== undefined) {
+      element.value = data[id];
+    }
+  });
+  
+  // Apply comments to ALL sections - FIXED!
+  const textareas = document.querySelectorAll('textarea');
+  textareas.forEach((textarea, index) => {
+    const sectionElement = textarea.closest('.section');
+    const sectionId = sectionElement ? sectionElement.id : 'unknown-section';
+    
+    // Reconstruct the ID the same way we did when saving
+    let label = '';
+    const parentDiv = textarea.parentElement;
+    
+    if (parentDiv && parentDiv.previousElementSibling) {
+      const labelElement = parentDiv.previousElementSibling;
+      if (labelElement.tagName === 'LABEL') {
+        label = labelElement.textContent || '';
+      }
+    }
+    
+    if (!label) {
+      const labelInDiv = textarea.parentElement.querySelector('label');
+      if (labelInDiv) {
+        label = labelInDiv.textContent || '';
+      }
+    }
+    
+    label = label.replace(/'s Comments:/, '').trim();
+    const id = `${sectionId}-${label || 'comment'}-${index}`;
+    
+    // Apply the saved value
+    if (data[id] !== undefined) {
+      textarea.value = data[id];
+    }
+  });
+  
+  console.log("✅ Data applied successfully");
+}
     // ============================================
     // EVENT LISTENERS & UI
     // ============================================
@@ -1180,5 +1234,6 @@
 </body>
 
 </html>
+
 
 
