@@ -879,7 +879,6 @@
       try {
         await db.ref('checklist').set(data);
         console.log("✅ Saved to Firebase");
-        showMessage("Data saved to cloud! ✨", "success");
       } catch (error) {
         console.error("❌ Firebase save error:", error);
         saveToLocalStorage();
@@ -1185,3 +1184,4 @@
 </body>
 
 </html>
+
